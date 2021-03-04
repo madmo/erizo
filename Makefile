@@ -65,6 +65,9 @@ UNAME := $(shell uname)
 	ifeq ($(UNAME), Darwin)
 		TARGET := darwin
 	endif
+	ifeq ($(UNAME), Linux)
+		TARGET := linux
+endif
 endif
 
 CFLAGS := -Wall -Werror -g -O3 -pedantic -Iinc -Ivendor -Ivendor/glfw/include -Ivendor/glew
@@ -94,6 +97,10 @@ ifeq ($(TARGET), darwin)
 	           -dead_strip \
 	           $(LDFLAGS)
 	PLATFORM := -DPLATFORM_DARWIN
+endif
+ifeq ($(TARGET), linux)
+	SRC += platform/linux platform/posix
+	LDFLAGS = -lglfw -lGLEW -lGLU -lGL -lpthread -lm
 endif
 ifeq ($(TARGET), win32-cross)
 	CC := x86_64-w64-mingw32-gcc

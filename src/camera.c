@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+#include <math.h>
 #include "camera.h"
 #include "draw.h"
 #include "log.h"
